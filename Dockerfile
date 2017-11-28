@@ -23,5 +23,5 @@ ENV USER ${USER}
 ENV TOKEN ${TOKEN}
 ENV JOB ${JOB}
 
-# Run locally docker run -it --rm -e JENKINS_HOST=http://localhost:8080 ,USER=vadim ,TOKEN=testpassword ,JOB=testjob  codefresh/cf-jenkins-plugin
+# Run locally docker run -it --rm -e JENKINS_URL="http://192.168.1.73:8080" -e JENKINS_USER="vadim" -e JENKINS_TOKEN="testpassword" -e JENKINS_JOB="testjob" local/cfjenkins
 CMD ["/usr/local/bin/cfjenkins"]

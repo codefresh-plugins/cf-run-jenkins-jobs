@@ -62,9 +62,19 @@ func (jenkins *JenkinksJobParams) trigger() {
 	resp, err := jenkins.sendRequest(req)
 	if err != nil {
 		log.Error(err.Error())
+		return
 	}
-	log.Info(resp.Status)
-	log.Info(fmt.Sprintf("The %s is triggered succesfully", jenkins.Job))
+	if resp.StatusCode == 404 {
+		log.Error(fmt.Sprintf("The trigger is failed! Job '%s' not found!", jenkins.Job))
+		return
+	}
+	if resp.StatusCode == 201 || resp.StatusCode == 200{
+		log.Info(resp.Status)
+		log.Info(fmt.Sprintf("The %s is triggered succesfully", jenkins.Job))
+	}else{
+		log.Error(fmt.Sprintf("The trigger is failed with status: %s", resp.Status))
+	}
+
 }
 
 
