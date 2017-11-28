@@ -62,7 +62,7 @@ func (jenkins *JenkinksJobParams) trigger() {
 		log.Error(err.Error())
 	}
 	log.Info(resp.Status)
-	log.Warn("Done")
+	log.Info(fmt.Sprintf("The %s is triggered succesfully", jenkins.Job))
 }
 
 
