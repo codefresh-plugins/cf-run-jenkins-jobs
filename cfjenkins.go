@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"os"
+	log "github.com/sirupsen/logrus"
 )
 
 type (
@@ -45,40 +46,25 @@ func NewJenkinksJobParams(user string, token string, host string, job string, jo
 		JobParams:jobparams,
 	}
 }
-func (jenkins *JenkinksJobParams) trigger() error{
+func (jenkins *JenkinksJobParams) trigger() {
 
 	path := fmt.Sprintf("%s/job/%s/%s", jenkins.Host, jenkins.Job,"build")
-	fmt.Println("SHalom: "+jenkins.Token,jenkins.Host, jenkins.Username, jenkins.Job,path)
-	return jenkins.post(path, url.Values{}, jenkins.JobParams)
-
-
-	fmt.Println(jenkins.Token,jenkins.Host, jenkins.Username, jenkins.Job)
-	return nil
-}
-
-func (jenkins *JenkinksJobParams) runJob(job string) error {
-	path := fmt.Sprintf("%s/job/%s/%s", jenkins.Host, job,"build")
-	fmt.Println("SHalom: "+jenkins.Token,jenkins.Host, jenkins.Username, job,path)
-	return jenkins.post(path, url.Values{}, jenkins.JobParams)
-
-}
-
-func (jenkins *JenkinksJobParams) post(path string, params url.Values, body string) (err error) {
-	requestURL := jenkins.buildURL(path, params)
+	log.Info(fmt.Sprintf("Going to trigger %s job on %s", jenkins.Job, jenkins.Host))
+	requestURL := jenkins.buildURL(path, url.Values{})
 	req, err := http.NewRequest("POST", requestURL, nil)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err.Error())
 		return
 	}
 
 	resp, err := jenkins.sendRequest(req)
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Error(err.Error())
 	}
-
-	return jenkins.parseResponse(resp, body)
+	log.Info(resp.Status)
+	log.Warn("Done")
 }
+
 
 func (jenkins *JenkinksJobParams) buildURL(path string, params url.Values) (requestURL string) {
 	requestURL = path
