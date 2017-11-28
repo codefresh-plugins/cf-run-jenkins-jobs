@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"strings"
-	"flag"
 	"net/url"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
+	"os"
 )
 
 type (
@@ -24,13 +24,12 @@ type (
 
 func main() {
 
-	user:=flag.String("user", "", "a string")
-	token:=flag.String("token", "", "a string")
-	host:=flag.String("host", "", "a string")
-	job:=flag.String("job", "", "a string")
-	//jobParams := flag.String("jobparams", "", "a string")
-	flag.Parse()
-	jenkins := NewJenkinksJobParams(*user, *token, *host,*job,"")
+	host:= os.Getenv("JENKINS_HOST")
+	token:= os.Getenv("TOKEN")
+	user:= os.Getenv("USER")
+	job:= os.Getenv("JOB")
+
+	jenkins := NewJenkinksJobParams(user, token, host,job,"")
 	jenkins.trigger()
 
 }
@@ -49,7 +48,7 @@ func NewJenkinksJobParams(user string, token string, host string, job string, jo
 func (jenkins *JenkinksJobParams) trigger() error{
 
 	path := fmt.Sprintf("%s/job/%s/%s", jenkins.Host, jenkins.Job,"build")
-	fmt.Println(jenkins.Token,jenkins.Host, jenkins.Username, jenkins.Job,path)
+	fmt.Println("SHalom: "+jenkins.Token,jenkins.Host, jenkins.Username, jenkins.Job,path)
 	return jenkins.post(path, url.Values{}, jenkins.JobParams)
 
 
@@ -59,7 +58,7 @@ func (jenkins *JenkinksJobParams) trigger() error{
 
 func (jenkins *JenkinksJobParams) runJob(job string) error {
 	path := fmt.Sprintf("%s/job/%s/%s", jenkins.Host, job,"build")
-	fmt.Println(jenkins.Token,jenkins.Host, jenkins.Username, job,path)
+	fmt.Println("SHalom: "+jenkins.Token,jenkins.Host, jenkins.Username, job,path)
 	return jenkins.post(path, url.Values{}, jenkins.JobParams)
 
 }
