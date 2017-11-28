@@ -23,7 +23,7 @@ DESCRIPTION:
 version: '1.0'
 steps:
   RunJenkins:
-   	title: Triggering Jenkins Job
+    title: Triggering Jenkins Job
     image: codefresh/cf-run-jenkins-job
     environment:
     - JENKINS_URL=http://<jenkins host>:<jenkins port>
