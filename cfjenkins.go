@@ -25,10 +25,10 @@ type (
 
 func main() {
 
-	host:= os.Getenv("JENKINS_HOST")
-	token:= os.Getenv("TOKEN")
-	user:= os.Getenv("USER")
-	job:= os.Getenv("JOB")
+	host:= os.Getenv("JENKINS_URL")
+	token:= os.Getenv("JENKINS_TOKEN")
+	user:= os.Getenv("JENKINS_USER")
+	job:= os.Getenv("JENKINS_JOB")
 
 	jenkins := NewJenkinksJobParams(user, token, host,job,"")
 	jenkins.trigger()
@@ -47,7 +47,9 @@ func NewJenkinksJobParams(user string, token string, host string, job string, jo
 	}
 }
 func (jenkins *JenkinksJobParams) trigger() {
-
+	if !jenkins.validate() {
+		return
+	}
 	path := fmt.Sprintf("%s/job/%s/%s", jenkins.Host, jenkins.Job,"build")
 	log.Info(fmt.Sprintf("Going to trigger %s job on %s", jenkins.Job, jenkins.Host))
 	requestURL := jenkins.buildURL(path, url.Values{})
@@ -96,4 +98,25 @@ func (jenkins *JenkinksJobParams) parseResponse(resp *http.Response, body interf
 	}
 
 	return json.Unmarshal(data, body)
+}
+
+func (jenkins *JenkinksJobParams) validate() bool{
+
+	if len(jenkins.Host) == 0 {
+		log.Error("JENKINS_URL is mandatory!")
+		return false
+	}
+	if len(jenkins.Token) == 0 {
+		log.Error("JENKINS_TOKEN is mandatory!")
+		return false
+	}
+	if len(jenkins.Username) == 0 {
+		log.Error("JENKINS_USER is mandatory!")
+		return false
+	}
+	if len(jenkins.Job) == 0 {
+		log.Error("JENKINS_JOB is mandatory!")
+		return false
+	}
+	return true
 }
