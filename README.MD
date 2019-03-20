@@ -1,9 +1,9 @@
 # Trigger Jenkins Job
 
-This plugin is part of Codefresh native (plugins)[https://github.com/codefresh-io/plugins]
+This plugin is part of Codefresh native (plugins)[https://github.com/codefresh-contrib/plugins]
 
 ## Run locally
-`go get codefresh-io/cf-run-jenkins-job`
+`go get codefresh-contrib/cf-run-jenkins-job`
 ```
 NAME:
    cf-run-jenkins-job
@@ -24,7 +24,7 @@ version: '1.0'
 steps:
   RunJenkins:
     title: Triggering Jenkins Job
-    image: codefresh/cf-run-jenkins-job
+    image: codefreshplugins/cf-run-jenkins-job
     environment:
     - JENKINS_URL=http://<jenkins host>:<jenkins port>
     - JENKINS_USER=<jenkins user name>
