@@ -6,7 +6,7 @@ categories:
   - Featured
 sources:
   - 'https://github.com/codefresh-contrib/cf-run-jenkins-jobs'
-icon: https://raw.githubusercontent.com/codefresh-plugins/cf-run-jenkins-jobs/blob/master/icon.jpg
+icon: https://raw.githubusercontent.com/codefresh-plugins/cf-run-jenkins-jobs/master/icon.jpg
 maintainers:
   - name: Vadim Waisman
 envs:
