@@ -4,6 +4,7 @@ version: 0.1.0
 description: Run jenkins job from codefresh pipeline
 categories:
   - Featured
+  - Build
 sources:
   - 'https://github.com/codefresh-contrib/cf-run-jenkins-jobs'
 icon: https://raw.githubusercontent.com/codefresh-plugins/cf-run-jenkins-jobs/master/icon.jpg
