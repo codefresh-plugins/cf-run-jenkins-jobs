@@ -70,7 +70,7 @@ func (jenkins *JenkinksJobParams) trigger() {
 	}
 	if resp.StatusCode == 201 || resp.StatusCode == 200{
 		log.Info(resp.Status)
-		log.Info(fmt.Sprintf("The %s is triggered succesfully", jenkins.Job))
+		log.Info(fmt.Sprintf("The %s is triggered successfully", jenkins.Job))
 	}else{
 		log.Error(fmt.Sprintf("The trigger is failed with status: %s", resp.Status))
 	}
