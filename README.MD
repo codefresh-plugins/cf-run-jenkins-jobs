@@ -1,6 +1,6 @@
 # Trigger Jenkins Job
 
-This plugin is part of Codefresh native (plugins)[https://github.com/codefresh-contrib/plugins]
+The plugin is to facilitate a single task - trigger a Jenkins job from a Codefresh pipeline
 
 ## Run locally
 `go get codefresh-contrib/cf-run-jenkins-job`
